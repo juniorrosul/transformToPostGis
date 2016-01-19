@@ -1,0 +1,9 @@
+[general]
+name=transformToPostGis
+description=This is a Qgis Plugin. This plugin using OGR libraries. You can use this plugin for transforming many Geospatial data to PostGIS.
+category=Database
+version=0.1.0
+qgisMinimumVersion=1.8
+
+author=Innotech Software
+email=info@innotechyazilim.com
