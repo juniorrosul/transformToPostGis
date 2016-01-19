@@ -32,6 +32,8 @@ from os.path import basename
 from os.path import dirname
 from ui_transformtopostgis import Ui_TransformToPostgis
 # create the dialog for zoom to point
+
+
 class TransformToPostgisDialog(QtGui.QDialog):
     def __init__(self, iface):
         QtGui.QDialog.__init__(self, iface.mainWindow())
@@ -53,17 +55,21 @@ class TransformToPostgisDialog(QtGui.QDialog):
         self.ui.cmftyp.addItem("GML")
         self.ui.cmftyp.addItem("ArcGIS Personal GeoDatabase")
 
-        QtCore.QObject.connect(self.ui.btnok, QtCore.SIGNAL( "clicked()" ), self.run )
-        QtCore.QObject.connect(self.ui.btnbrowse, QtCore.SIGNAL( "clicked()" ), self.OpenFileDialog )
-
+        QtCore.QObject.connect(
+            self.ui.btnok,
+            QtCore.SIGNAL("clicked()"),
+            self.run)
+        QtCore.QObject.connect(
+            self.ui.btnbrowse,
+            QtCore.SIGNAL("clicked()"),
+            self.OpenFileDialog)
 
     def run(self):
-
         settings = QSettings()
         mysetting = self.ui.DataCon.currentText()
         mySettings = "/PostgreSQL/connections/" + mysetting
 
-        if self.ui.cmprc.currentText() == "Create New Table" :
+        if self.ui.cmprc.currentText() == "Create New Table":
             command = "ogr2ogr -progress -append -f \"PostgreSQL\" PG:\"dbname="+settings.value(mySettings+"/database").toString()+" user="+settings.value(mySettings+"/username").toString()+" password=" +settings.value(mySettings+"/password").toString()+"\" \""+str(self.ui.txtout.text())+"\""
             os.system(str(command))
         elif self.ui.cmprc.currentText() =="Delete Existing Table and Create New Table":
@@ -72,7 +78,6 @@ class TransformToPostgisDialog(QtGui.QDialog):
         else:
             command = "ogr2ogr -progress -update -f \"PostgreSQL\" PG:\"dbname="+settings.value(mySettings+"/database").toString()+" user="+settings.value(mySettings+"/username").toString()+" password=" +settings.value(mySettings+"/password").toString()+"\" \""+str(self.ui.txtout.text())+"\""
             os.system(str(command))
-
 
     def OpenFileDialog(self):
 
@@ -92,7 +97,7 @@ class TransformToPostgisDialog(QtGui.QDialog):
         filter = 'Files ('+str(file_type)+')'
         outFilePath = QtGui.QFileDialog.getOpenFileName(self, self.tr('Select a '+str(self.ui.cmftyp.currentText())), outDir, filter)
         outFilePath = unicode(outFilePath)
-        
+
         if outFilePath:
             root, ext = splitext(outFilePath)
             outDir = dirname(outFilePath)

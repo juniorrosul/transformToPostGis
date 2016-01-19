@@ -20,16 +20,30 @@
  ***************************************************************************/
  This script initializes the plugin, making it known to QGIS.
 """
+
+
 def name():
     return "Transform to PostGIS"
+
+
 def description():
-    return "transform differen spatial data like GML, Esri Shapefile, ArcGIS Personal GeoDatabase, MapInfo etc. to PostgreSQL\Postgis Database with OGR Libraries"
+    return "transform differen spatial data like GML, Esri Shapefile, ArcGIS\
+     Personal GeoDatabase, MapInfo etc. to PostgreSQL\Postgis Database with\
+     OGR Libraries"
+
+
 def version():
     return "Version 1.0"
+
+
 def icon():
     return "icon.png"
+
+
 def qgisMinimumVersion():
     return "1.0"
+
+
 def classFactory(iface):
     # load ShapeToPostgis class from file ShapeToPostgis
     from transformtopostgis import TransformToPostgis
